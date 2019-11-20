@@ -45,8 +45,8 @@ print(model)  # 查看模型结构
 
 # 不进行梯度更新，fix the parameters value of vgg19
 
-# for parma in model.parameters():
-#     parma.requires_grad = False
+for parma in model.parameters():
+    parma.requires_grad = False
 
 # 改变模型的全连接层，因为原模型是输出1000个类，本项目只需要输出2类# 25088
 model.classifier = torch.nn.Sequential(torch.nn.Linear(25088, 4096),
@@ -68,9 +68,9 @@ if use_gpu:
 cost = torch.nn.CrossEntropyLoss()
 # 定义优化器
 # optimizer = torch.optim.Adam(model.classifier.parameters())
-# optimizer = torch.optim.SGD(model.classifier.parameters(), lr=1e-3)
+optimizer = torch.optim.SGD(model.classifier.parameters(), lr=1e-3)
 # optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
-optimizer = torch.optim.Adam(model.parameters())
+
 
 # 再次查看模型结构
 print(model)
